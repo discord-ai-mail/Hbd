@@ -6,12 +6,13 @@
 <title>Happy Birthday Divya 🎉</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
 
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: black;
     color: white;
     font-family: 'Poppins', sans-serif;
@@ -19,8 +20,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
     text-align: center;
+    padding: 40px 10px;
   }
 
   h1 {
@@ -49,6 +51,7 @@
     box-shadow: 0 0 15px #b366ff;
     transition: all 0.3s ease;
   }
+
   button:hover {
     transform: scale(1.08);
     box-shadow: 0 0 25px #ff66b2;
@@ -70,7 +73,6 @@
     cursor: pointer;
   }
 
-  /* Hover overlay for download */
   #downloadOverlay {
     position: absolute;
     top: 0;
@@ -87,13 +89,14 @@
     opacity: 0;
     transition: opacity 0.3s ease;
   }
+
   #photoContainer:hover #downloadOverlay {
     opacity: 1;
   }
 
   #message {
     margin: 20px auto;
-    width: 80%;
+    width: 85%;
     max-width: 700px;
     font-size: 1rem;
     line-height: 1.6;
@@ -105,7 +108,6 @@
     text-decoration: none;
   }
 
-  /* Balloons & sparkles */
   .emoji {
     position: fixed;
     bottom: 0;
@@ -119,7 +121,6 @@
     100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
   }
 
-  /* Popup toast */
   .toast {
     position: fixed;
     bottom: 20px;
@@ -140,9 +141,74 @@
   #thankYou, #downloadAll {
     display: none;
   }
+
+  /* Device mode popup */
+  #modePopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  #modePopup h2 {
+    color: #ffccff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .modeBtn {
+    margin: 10px;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #b366ff, #ff66b2);
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 15px #b366ff;
+    transition: 0.3s;
+  }
+
+  .modeBtn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px #ff66b2;
+  }
+
+  /* Mobile mode adjustment */
+  body.mobile {
+    font-size: 0.9rem;
+  }
+  body.mobile h1 {
+    font-size: 2.2rem;
+  }
+  body.mobile h3 {
+    font-size: 1.5rem;
+  }
+  body.mobile button {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+  body.mobile #photo {
+    width: 80%;
+  }
+
 </style>
 </head>
 <body>
+
+<!-- Mode Selection Popup -->
+<div id="modePopup">
+  <h2>Choose Your Mode </h2>
+  <button class="modeBtn" id="desktopMode">💻 Desktop / PC</button>
+  <button class="modeBtn" id="mobileMode">📱 Mobile (Android / Apple)</button>
+</div>
 
 <h1 id="helloText">Hello Divya</h1>
 <h3 id="subText">Press below button</h3>
@@ -167,14 +233,32 @@ const message = document.getElementById('message');
 const thankYou = document.getElementById('thankYou');
 const downloadAll = document.getElementById('downloadAll');
 
+const modePopup = document.getElementById('modePopup');
+const desktopMode = document.getElementById('desktopMode');
+const mobileMode = document.getElementById('mobileMode');
+
 let images = [
   "./divya.png?text=Divya+Photo+1",
   "./divya 2.png?text=Divya+Photo+2"
 ];
 let currentImage = 0;
 
+// Mode selection
+desktopMode.addEventListener('click', () => {
+  document.body.classList.remove('mobile');
+  modePopup.style.display = 'none';
+  showToast("💻 Desktop Mode Activated");
+});
+
+mobileMode.addEventListener('click', () => {
+  document.body.classList.add('mobile');
+  modePopup.style.display = 'none';
+  showToast("📱 Mobile Mode Activated");
+  window.scrollTo(0, 0);
+});
+
 startBtn.addEventListener('click', () => {
-  helloText.textContent = "🎉 Happy Birthday 🎉";
+  helloText.textContent = "Happy Birthday";
   subText.textContent = "Divya ";
   startBtn.style.display = "none";
 
