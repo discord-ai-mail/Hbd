@@ -2,289 +2,220 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Divya 🎉</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
-      height: 100vh;
-      background: #000;
+      background-color: black;
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
       overflow: hidden;
-      font-family: "Poppins", sans-serif;
+      height: 100vh;
     }
 
     h1 {
-      font-size: 3em;
-      color: #fff;
-      text-shadow: 0 0 25px #ff66cc;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 1s ease;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      letter-spacing: 2px;
     }
 
     h3 {
-       font-family: "Lemon Milk", sans-serif; /* Add a fallback font */
-       font-size: 2.5em;
-       background: linear-gradient(90deg, #ff99cc, #cc99ff);
-       -webkit-background-clip: text; /* Add for wider browser support */
-       background-clip: text;
-       color: transparent;
-       opacity: 0;
-       text-shadow: 0 0 15px #ffffff88;
-       transition: all 1s ease;
-      }
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #ffb6c1;
+      margin-bottom: 20px;
+    }
 
-
-    .hidden {
-      display: none;
+    .container {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     button {
-      margin-top: 25px;
-      padding: 12px 30px;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #ff00cc, #3333ff);
+      background: linear-gradient(45deg, #ff0080, #ff8c00);
       color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.2rem;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(255,255,255,0.4);
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
     }
-
     button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 25px rgba(255,255,255,0.6);
+      transform: scale(1.1);
     }
 
     .photo-container {
       position: relative;
-      margin-top: 20px;
-      border-radius: 20px;
-      overflow: hidden;
-      padding: 20px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 35px rgba(255,255,255,0.15);
       display: none;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      animation: boom 1s ease-out forwards;
+      margin-top: 30px;
     }
 
-    @keyframes boom {
-      0% { transform: scale(0.2) rotate(45deg); opacity: 0; }
-      70% { transform: scale(1.2) rotate(-10deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg); }
-    }
-
-    .photo-slideshow {
-      position: relative;
+    .photo {
       width: 260px;
-      height: 350px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 35px rgba(255,255,255,0.5);
-    }
-
-    .photo-slideshow img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+      height: 260px;
+      border-radius: 20px;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      box-shadow: 0 0 25px rgba(255,255,255,0.4);
+      transition: opacity 1s ease-in-out;
+      backdrop-filter: blur(10px);
+    }
+
+    .message {
+      margin: 25px auto;
+      max-width: 90%;
+      font-size: 1rem;
+      color: #ffebcd;
+      display: none;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
       border-radius: 15px;
-    }
-
-    .photo-slideshow img.active {
-      opacity: 1;
-    }
-
-    p {
-      margin-top: 20px;
-      max-width: 600px;
-      text-align: center;
-      font-size: 1.1em;
-      color: #fff;
-      opacity: 0;
-      line-height: 1.7;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
 
     a {
-      color: #ff80df;
+      color: #ff66b2;
       text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #ff99ff;
+      font-weight: bold;
     }
 
-    .sparkle {
+    /* Celebration emojis floating */
+    .emoji {
       position: absolute;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      animation: sparkle 1.5s ease-out forwards;
-      pointer-events: none;
+      bottom: -50px;
+      font-size: 1.5rem;
+      animation: floatUp 4s linear forwards;
+      z-index: 1000;
     }
 
-    @keyframes sparkle {
-      0% {transform: scale(0) translate(0,0); opacity: 1;}
-      100% {transform: scale(1.2) translate(var(--x), var(--y)); opacity: 0;}
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
+    /* Pop-up burst */
     .popup {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      padding: 30px 60px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255,255,255,0.4);
-      font-size: 2.5em;
-      color: #fff;
-      transition: all 0.4s ease;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      display: none;
+      animation: burst 0.8s ease forwards;
     }
 
-    .popup.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    #intro h2 {
-      font-size: 1.8em;
-      text-shadow: 0 0 15px #ff66cc;
+    @keyframes burst {
+      0% { transform: scale(0) translate(-50%, -50%); opacity: 0; }
+      100% { transform: scale(1.5) translate(-50%, -50%); opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <div id="intro">
-    <center><h2>Hello Divya 👋</h2></center>
-    <button id="startBtn">Click Me</button>
+  <div class="container" id="intro">
+    <h1>Hello Divya 👋</h1>
+    <p>Click Below</p>
+    <button onclick="startSurprise()">Click Me 🎁</button>
   </div>
 
-  <div class="photo-container" id="photoContainer">
-    <h1 id="wish">Happy Birthday 🎉</h1>
-    <h3 id="name">Divya</h3>
-
-    <!-- Slideshow container -->
-    <div class="photo-slideshow" id="slideshow">
-      <img src="./divya.png" class="active" alt="Divya 1">
-      <img src="./divya 2.png" alt="Divya 2">
-    </div>
-
-    <p id="message"></p>
-    <button id="thankBtn" class="hidden">Thank You 💕</button>
+  <div class="photo-container" id="celebration">
+    <h1>🎉 Happy Birthday 🎉</h1>
+    <h3>Divya</h3>
+    <img src="./divya.png" class="photo" id="photo1" alt="Divya Photo 1">
+    <img src="./divya 2.png" class="photo" id="photo2" alt="Divya Photo 2">
+    <div class="message" id="message"></div>
+    <button onclick="showThanks()">Thank You 💞</button>
   </div>
 
   <div class="popup" id="popup">☺️🫶💖</div>
 
   <script>
-    const startBtn = document.getElementById('startBtn');
-    const photoContainer = document.getElementById('photoContainer');
-    const wish = document.getElementById('wish');
-    const name = document.getElementById('name');
-    const messageEl = document.getElementById('message');
-    const thankBtn = document.getElementById('thankBtn');
+    const intro = document.getElementById('intro');
+    const celebration = document.getElementById('celebration');
+    const messageBox = document.getElementById('message');
     const popup = document.getElementById('popup');
-    const slides = document.querySelectorAll('.photo-slideshow img');
+    const photo1 = document.getElementById('photo1');
+    const photo2 = document.getElementById('photo2');
 
-    let currentSlide = 0;
-    let slideshowInterval;
+    const messageText = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. May this year will be your next step of success, year to be good and best version. Love you Akka 🫶✨💖
+    <br><br>With love and support - <a href="https://instagram.com/celebmodeon" target="_blank">@celebmodeon</a>`;
 
-    const messageText = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. 
-    Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. 
-    May this year be your next step of success — a year to become the best version of yourself. Love you Akka 🫶✨💖 
-    With love and support – <a href="https://instagram.com/celebmodeon" target="_blank">@celebmodeon</a>`;
-
-    startBtn.addEventListener('click', () => {
-      document.getElementById('intro').style.display = 'none';
+    function startSurprise() {
+      intro.style.display = 'none';
+      celebration.style.display = 'flex';
+      photo1.style.opacity = 1;
       createBoomEffect();
-      setTimeout(() => {
-        photoContainer.style.display = 'flex';
-        wish.style.opacity = 1;
-        wish.style.transform = 'scale(1)';
-        name.style.opacity = 1;
-        setTimeout(cameraFlash, 400);
-        setTimeout(startTyping, 2000);
-        startSlideshow();
-      }, 800);
-    });
-
-    function startSlideshow() {
-      slideshowInterval = setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-      }, 4000); // switch every 4 seconds
+      startImageLoop();
+      startTypingEffect();
     }
-
-    function startTyping() {
-      let i = 0;
-      messageEl.style.opacity = 1;
-      const interval = setInterval(() => {
-        messageEl.innerHTML = messageText.slice(0, i);
-        i++;
-        if (i > messageText.length) {
-          clearInterval(interval);
-          thankBtn.classList.remove('hidden');
-        }
-      }, 40);
-    }
-
-    thankBtn.addEventListener('click', () => {
-      popup.classList.add('show');
-      createBoomEffect();
-      setTimeout(() => popup.classList.remove('show'), 2000);
-    });
 
     function createBoomEffect() {
-      for (let i = 0; i < 40; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        sparkle.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
-        sparkle.style.setProperty('--y', `${(Math.random() - 0.5) * 500}px`);
-        sparkle.style.left = window.innerWidth / 2 + 'px';
-        sparkle.style.top = window.innerHeight / 2 + 'px';
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1500);
+      for (let i = 0; i < 60; i++) {
+        setTimeout(() => createEmoji(), i * 80);
       }
     }
 
-    function cameraFlash() {
-      const flash = document.createElement('div');
-      flash.style.position = 'fixed';
-      flash.style.top = 0;
-      flash.style.left = 0;
-      flash.style.width = '100%';
-      flash.style.height = '100%';
-      flash.style.background = 'white';
-      flash.style.opacity = '1';
-      flash.style.transition = 'opacity 0.5s';
-      document.body.appendChild(flash);
-      setTimeout(() => (flash.style.opacity = '0'), 100);
-      setTimeout(() => flash.remove(), 600);
+    function createEmoji() {
+      const emojiList = ['🎈', '🎊', '🎉', '✨', '💖', '🫶'];
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = Math.random() * 1.8 + 1 + 'rem';
+      document.body.appendChild(emoji);
+
+      setTimeout(() => emoji.remove(), 4000);
+    }
+
+    function startTypingEffect() {
+      let index = 0;
+      messageBox.style.display = 'block';
+      function type() {
+        if (index < messageText.length) {
+          messageBox.innerHTML = messageText.slice(0, index++) + "|";
+          createEmoji();
+          setTimeout(type, 40);
+        } else {
+          messageBox.innerHTML = messageText;
+        }
+      }
+      type();
+    }
+
+    function startImageLoop() {
+      let visible = true;
+      setInterval(() => {
+        if (visible) {
+          photo1.style.opacity = 0;
+          photo2.style.opacity = 1;
+        } else {
+          photo1.style.opacity = 1;
+          photo2.style.opacity = 0;
+        }
+        visible = !visible;
+      }, 4000);
+    }
+
+    function showThanks() {
+      popup.style.display = 'block';
+      createBoomEffect();
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 2000);
     }
   </script>
-
 </body>
 </html>
