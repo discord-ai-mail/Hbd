@@ -4,218 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Divya 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
     body {
+      margin: 0;
       background-color: black;
       color: white;
       font-family: 'Poppins', sans-serif;
-      text-align: center;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-top: 20px;
-      letter-spacing: 2px;
+      font-size: 3em;
+      text-shadow: 0 0 15px #ff00ff, 0 0 25px #ff99cc;
     }
 
     h3 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2rem;
-      color: #ffb6c1;
-      margin-bottom: 20px;
-    }
-
-    .container {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
+      font-family: 'Pacifico', cursive;
+      font-size: 2em;
+      color: #ffccff;
+      text-shadow: 0 0 10px #ff99ff;
     }
 
     button {
-      background: linear-gradient(45deg, #ff0080, #ff8c00);
-      color: white;
+      padding: 12px 30px;
+      font-size: 1.2em;
       border: none;
-      padding: 15px 35px;
-      font-size: 1.2rem;
-      border-radius: 50px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #ff66cc, #ff99ff);
+      color: white;
       cursor: pointer;
-      transition: transform 0.2s ease;
-      box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
-    }
-    button:hover {
-      transform: scale(1.1);
+      margin-top: 20px;
+      transition: transform 0.3s ease;
     }
 
-    .photo-container {
-      position: relative;
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .hidden {
       display: none;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
     }
 
     .photo {
-      width: 260px;
-      height: 260px;
-      border-radius: 20px;
-      object-fit: cover;
-      opacity: 0;
-      box-shadow: 0 0 25px rgba(255,255,255,0.4);
-      transition: opacity 1s ease-in-out;
-      backdrop-filter: blur(10px);
+      width: 280px;
+      height: 280px;
+      border-radius: 25px;
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      margin: 20px auto;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      animation: pop 1s ease forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
     }
 
     .message {
-      margin: 25px auto;
-      max-width: 90%;
-      font-size: 1rem;
-      color: #ffebcd;
-      display: none;
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 15px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      width: 80%;
+      margin: 0 auto;
+      font-size: 1.1em;
+      color: #fff;
+      text-shadow: 0 0 10px #ff99ff;
+      white-space: pre-wrap;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: scale(0.2) rotate(360deg); opacity: 0; top: -10%; }
+    }
+
+    .sparkle {
+      position: absolute;
+      bottom: 0;
+      font-size: 1.5em;
+      animation: sparkle 4s linear infinite;
+      pointer-events: none;
     }
 
     a {
-      color: #ff66b2;
+      color: #ff99ff;
       text-decoration: none;
       font-weight: bold;
     }
 
-    /* Celebration emojis floating */
-    .emoji {
-      position: absolute;
-      bottom: -50px;
-      font-size: 1.5rem;
-      animation: floatUp 4s linear forwards;
-      z-index: 1000;
+    a:hover {
+      text-decoration: underline;
     }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* Pop-up burst */
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.5rem;
-      display: none;
-      animation: burst 0.8s ease forwards;
-    }
-
-    @keyframes burst {
-      0% { transform: scale(0) translate(-50%, -50%); opacity: 0; }
-      100% { transform: scale(1.5) translate(-50%, -50%); opacity: 1; }
-    }
   </style>
 </head>
 <body>
-
-  <div class="container" id="intro">
-    <h1>Hello Divya 👋</h1>
-    <p>Click Below</p>
-    <button onclick="startSurprise()">Click Me 🎁</button>
+  <div class="container" id="start">
+    <h2>Hello Divya 👋</h2>
+    <p>Press Below Button</p><br>
+    <button id="clickBtn">Click Me</button>
   </div>
 
-  <div class="photo-container" id="celebration">
+  <div class="container hidden" id="birthday">
     <h1>🎉 Happy Birthday 🎉</h1>
     <h3>Divya</h3>
-    <img src="./divya.png" class="photo" id="photo1" alt="Divya Photo 1">
-    <img src="./divya 2.png" class="photo" id="photo2" alt="Divya Photo 2">
-    <div class="message" id="message"></div>
-    <button onclick="showThanks()">Thank You 💞</button>
+    <div class="photo" id="photo"></div>
+    <p class="message" id="message"></p>
+    <button id="thankBtn">Thank You</button>
   </div>
 
-  <div class="popup" id="popup">☺️🫶💖</div>
-
   <script>
-    const intro = document.getElementById('intro');
-    const celebration = document.getElementById('celebration');
-    const messageBox = document.getElementById('message');
-    const popup = document.getElementById('popup');
-    const photo1 = document.getElementById('photo1');
-    const photo2 = document.getElementById('photo2');
+    const clickBtn = document.getElementById('clickBtn');
+    const startDiv = document.getElementById('start');
+    const birthdayDiv = document.getElementById('birthday');
+    const photo = document.getElementById('photo');
+    const message = document.getElementById('message');
+    const thankBtn = document.getElementById('thankBtn');
 
-    const messageText = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. May this year will be your next step of success, year to be good and best version. Love you Akka 🫶✨💖
-    <br><br>With love and support - <a href="https://instagram.com/celebmodeon" target="_blank">@celebmodeon</a>`;
+    const images = [
+      './divya.png',
+      './divya 2.png'
+    ];
+    let currentImage = 0;
 
-    function startSurprise() {
-      intro.style.display = 'none';
-      celebration.style.display = 'flex';
-      photo1.style.opacity = 1;
-      createBoomEffect();
-      startImageLoop();
-      startTypingEffect();
+    function switchImage() {
+      currentImage = (currentImage + 1) % images.length;
+      photo.style.backgroundImage = `url(${images[currentImage]})`;
     }
 
-    function createBoomEffect() {
-      for (let i = 0; i < 60; i++) {
-        setTimeout(() => createEmoji(), i * 80);
+    clickBtn.addEventListener('click', () => {
+      startDiv.classList.add('hidden');
+      birthdayDiv.classList.remove('hidden');
+      createBoom();
+      showPhotoAndMessage();
+      setInterval(switchImage, 4000);
+    });
+
+    function createBoom() {
+      for (let i = 0; i < 30; i++) {
+        const boom = document.createElement('div');
+        boom.classList.add('sparkle');
+        boom.innerText = ['✨', '🎉', '🎈', '💖', '🎊'][Math.floor(Math.random() * 5)];
+        boom.style.left = Math.random() * 100 + 'vw';
+        boom.style.fontSize = Math.random() * 20 + 15 + 'px';
+        boom.style.animationDuration = Math.random() * 2 + 2 + 's';
+        document.body.appendChild(boom);
+        setTimeout(() => boom.remove(), 4000);
       }
     }
 
-    function createEmoji() {
-      const emojiList = ['🎈', '🎊', '🎉', '✨', '💖', '🫶'];
-      const emoji = document.createElement('div');
-      emoji.classList.add('emoji');
-      emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.fontSize = Math.random() * 1.8 + 1 + 'rem';
-      document.body.appendChild(emoji);
-
-      setTimeout(() => emoji.remove(), 4000);
-    }
-
-    function startTypingEffect() {
-      let index = 0;
-      messageBox.style.display = 'block';
-      function type() {
-        if (index < messageText.length) {
-          messageBox.innerHTML = messageText.slice(0, index++) + "|";
-          createEmoji();
-          setTimeout(type, 40);
-        } else {
-          messageBox.innerHTML = messageText;
-        }
+    function createCelebration() {
+      for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.classList.add('sparkle');
+        emoji.innerText = ['🎈', '🎉', '✨', '🎊'][Math.floor(Math.random() * 4)];
+        emoji.style.left = Math.random() * 100 + 'vw';
+        emoji.style.fontSize = Math.random() * 20 + 15 + 'px';
+        emoji.style.animationDuration = Math.random() * 3 + 3 + 's';
+        document.body.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 4000);
       }
-      type();
     }
 
-    function startImageLoop() {
-      let visible = true;
-      setInterval(() => {
-        if (visible) {
-          photo1.style.opacity = 0;
-          photo2.style.opacity = 1;
-        } else {
-          photo1.style.opacity = 1;
-          photo2.style.opacity = 0;
-        }
-        visible = !visible;
-      }, 4000);
-    }
-
-    function showThanks() {
-      popup.style.display = 'block';
-      createBoomEffect();
+    function showPhotoAndMessage() {
+      photo.style.backgroundImage = `url(${images[currentImage]})`;
       setTimeout(() => {
-        popup.style.display = 'none';
-      }, 2000);
+        startTyping();
+        createCelebration(); // 🎈 Starts when typing begins
+      }, 1200);
     }
+
+    const text = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. May this year will be your next step of success, year to be good and best version. Love you Akka 🫶✨💖
+      
+with love and support - 
+👉 <a href="https://instagram.com/celebmodeon" target="_blank">@celebmodeon</a>`;
+
+    let i = 0;
+    function startTyping() {
+      if (i < text.length) {
+        message.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(startTyping, 40);
+      }
+    }
+
+    thankBtn.addEventListener('click', () => {
+      createBoom();
+      alert('☺️🫶💖');
+    });
   </script>
 </body>
 </html>
