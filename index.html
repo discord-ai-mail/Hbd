@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Divya 🎉</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 0 0 25px #ff66cc;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1s ease;
+    }
+
+    h3 {
+      font-family: "Dancing Script", cursive;
+      font-size: 2.5em;
+      background: linear-gradient(90deg, #ff99cc, #cc99ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      opacity: 0;
+      text-shadow: 0 0 15px #ffffff88;
+      transition: all 1s ease;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 30px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff00cc, #3333ff);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255,255,255,0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(255,255,255,0.6);
+    }
+
+    .photo-container {
+      position: relative;
+      margin-top: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 35px rgba(255,255,255,0.15);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: boom 1s ease-out forwards;
+    }
+
+    @keyframes boom {
+      0% { transform: scale(0.2) rotate(45deg); opacity: 0; }
+      70% { transform: scale(1.2) rotate(-10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    img {
+      width: 260px;
+      border-radius: 15px;
+      box-shadow: 0 0 35px rgba(255,255,255,0.5);
+      animation: flicker 0.5s ease-out 0.3s;
+    }
+
+    @keyframes flicker {
+      0%, 50%, 100% {opacity: 1;}
+      25%, 75% {opacity: 0;}
+    }
+
+    p {
+      margin-top: 20px;
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.1em;
+      color: #fff;
+      opacity: 0;
+      line-height: 1.7;
+    }
+
+    a {
+      color: #ff80df;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #ff99ff;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 1.5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0% {transform: scale(0) translate(0,0); opacity: 1;}
+      100% {transform: scale(1.2) translate(var(--x), var(--y)); opacity: 0;}
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255,255,255,0.4);
+      font-size: 2.5em;
+      color: #fff;
+      transition: all 0.4s ease;
+    }
+
+    .popup.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #intro h2 {
+      font-size: 1.8em;
+      text-shadow: 0 0 15px #ff66cc;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="intro">
+    <h2>Hello Divya 👋</h2>
+    <button id="startBtn">Click Me</button>
+  </div>
+
+  <div class="photo-container" id="photoContainer">
+    <h1 id="wish">Happy Birthday 🎉</h1>
+    <h3 id="name">Divya 💖</h3>
+    <img id="photo" src="./image.jpg" alt="Divya">
+    <p id="message"></p>
+    <button id="thankBtn" class="hidden">Thank You 💕</button>
+  </div>
+
+  <div class="popup" id="popup">☺️🫶💖</div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const photoContainer = document.getElementById('photoContainer');
+    const wish = document.getElementById('wish');
+    const name = document.getElementById('name');
+    const messageEl = document.getElementById('message');
+    const thankBtn = document.getElementById('thankBtn');
+    const popup = document.getElementById('popup');
+
+    const messageText = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. 
+    Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. 
+    May this year be your next step of success — a year to become the best version of yourself. Love you Akka 🫶✨💖 
+    With love and support – <a href="https://instagram.com/celebmodeon" target="_blank">@celebmodeon</a>`;
+
+    startBtn.addEventListener('click', () => {
+      document.getElementById('intro').style.display = 'none';
+      createBoomEffect();
+      setTimeout(() => {
+        photoContainer.style.display = 'flex';
+        wish.style.opacity = 1;
+        wish.style.transform = 'scale(1)';
+        name.style.opacity = 1;
+        setTimeout(cameraFlash, 400);
+        setTimeout(startTyping, 2000);
+      }, 800);
+    });
+
+    function startTyping() {
+      let i = 0;
+      messageEl.style.opacity = 1;
+      const interval = setInterval(() => {
+        messageEl.innerHTML = messageText.slice(0, i);
+        i++;
+        if (i > messageText.length) {
+          clearInterval(interval);
+          thankBtn.classList.remove('hidden');
+        }
+      }, 40);
+    }
+
+    thankBtn.addEventListener('click', () => {
+      popup.classList.add('show');
+      createBoomEffect();
+      setTimeout(() => popup.classList.remove('show'), 2000);
+    });
+
+    function createBoomEffect() {
+      for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
+        sparkle.style.setProperty('--y', `${(Math.random() - 0.5) * 500}px`);
+        sparkle.style.left = window.innerWidth / 2 + 'px';
+        sparkle.style.top = window.innerHeight / 2 + 'px';
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1500);
+      }
+    }
+
+    function cameraFlash() {
+      const flash = document.createElement('div');
+      flash.style.position = 'fixed';
+      flash.style.top = 0;
+      flash.style.left = 0;
+      flash.style.width = '100%';
+      flash.style.height = '100%';
+      flash.style.background = 'white';
+      flash.style.opacity = '1';
+      flash.style.transition = 'opacity 0.5s';
+      document.body.appendChild(flash);
+      setTimeout(() => (flash.style.opacity = '0'), 100);
+      setTimeout(() => flash.remove(), 600);
+    }
+  </script>
+
+</body>
+</html>
