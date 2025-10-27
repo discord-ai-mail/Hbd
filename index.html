@@ -89,16 +89,27 @@
       100% { transform: scale(1) rotate(0deg); }
     }
 
-    img {
+    .photo-slideshow {
+      position: relative;
       width: 260px;
+      height: 350px;
       border-radius: 15px;
+      overflow: hidden;
       box-shadow: 0 0 35px rgba(255,255,255,0.5);
-      animation: flicker 0.5s ease-out 0.3s;
     }
 
-    @keyframes flicker {
-      0%, 50%, 100% {opacity: 1;}
-      25%, 75% {opacity: 0;}
+    .photo-slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      border-radius: 15px;
+    }
+
+    .photo-slideshow img.active {
+      opacity: 1;
     }
 
     p {
@@ -160,7 +171,6 @@
       font-size: 1.8em;
       text-shadow: 0 0 15px #ff66cc;
     }
-
   </style>
 </head>
 <body>
@@ -173,7 +183,13 @@
   <div class="photo-container" id="photoContainer">
     <h1 id="wish">Happy Birthday 🎉</h1>
     <h3 id="name">Divya 💖</h3>
-    <img id="photo" src="./divya.png" alt="Divya">
+
+    <!-- Slideshow container -->
+    <div class="photo-slideshow" id="slideshow">
+      <img src="./divya.png" class="active" alt="Divya 1">
+      <img src="./divya 2.png" alt="Divya 2">
+    </div>
+
     <p id="message"></p>
     <button id="thankBtn" class="hidden">Thank You 💕</button>
   </div>
@@ -188,6 +204,10 @@
     const messageEl = document.getElementById('message');
     const thankBtn = document.getElementById('thankBtn');
     const popup = document.getElementById('popup');
+    const slides = document.querySelectorAll('.photo-slideshow img');
+
+    let currentSlide = 0;
+    let slideshowInterval;
 
     const messageText = `Have a Blessed day Akka(Anni) Divya with your super hubby Rahul Anna and aaradhya papa. 
     Stay Healthy and energetic with them and may your family and studio, shop will be get more promoted and grow higher. 
@@ -204,8 +224,17 @@
         name.style.opacity = 1;
         setTimeout(cameraFlash, 400);
         setTimeout(startTyping, 2000);
+        startSlideshow();
       }, 800);
     });
+
+    function startSlideshow() {
+      slideshowInterval = setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 4000); // switch every 4 seconds
+    }
 
     function startTyping() {
       let i = 0;
