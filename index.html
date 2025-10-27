@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Divya 🎉</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
 
@@ -103,7 +105,7 @@
     text-decoration: none;
   }
 
-  /* Balloon & sparkle container */
+  /* Balloons & sparkles */
   .emoji {
     position: fixed;
     bottom: 0;
@@ -135,7 +137,7 @@
     10%,90% { opacity: 1; transform: translateY(0); }
   }
 
-  #thankYou {
+  #thankYou, #downloadAll {
     display: none;
   }
 </style>
@@ -153,6 +155,7 @@
 
 <p id="message"></p>
 <button id="thankYou">Thank You</button>
+<button id="downloadAll">Download Image</button>
 
 <script>
 const startBtn = document.getElementById('startBtn');
@@ -162,6 +165,7 @@ const photoContainer = document.getElementById('photoContainer');
 const photo = document.getElementById('photo');
 const message = document.getElementById('message');
 const thankYou = document.getElementById('thankYou');
+const downloadAll = document.getElementById('downloadAll');
 
 let images = [
   "./divya.png?text=Divya+Photo+1",
@@ -171,15 +175,11 @@ let currentImage = 0;
 
 startBtn.addEventListener('click', () => {
   helloText.textContent = "🎉 Happy Birthday 🎉";
-  subText.textContent = "Divya";
+  subText.textContent = "Divya ";
   startBtn.style.display = "none";
 
-  // Boom and celebration
-  for (let i = 0; i < 20; i++) {
-    createEmoji(["🎈","🎊","✨","🎉"][Math.floor(Math.random()*4)]);
-  }
+  for (let i = 0; i < 20; i++) createEmoji(["🎈","🎊","✨","🎉"][Math.floor(Math.random()*4)]);
 
-  // Show photo
   setTimeout(() => {
     photoContainer.style.display = "block";
     setInterval(() => {
@@ -215,17 +215,17 @@ With love and support <a href="https://instagram.com/celebmodeon" target="_blank
     } else {
       message.innerHTML = text;
       thankYou.style.display = "inline-block";
+      downloadAll.style.display = "inline-block";
     }
   }
   typing();
 }
 
 thankYou.addEventListener('click', () => {
-  showToast("☺️🫶💖");
+  showToast("☺️🫶");
   for (let i = 0; i < 30; i++) createEmoji(["🎈","✨","🎉","💖"][Math.floor(Math.random()*4)]);
 });
 
-// Download feature
 photoContainer.addEventListener('click', () => {
   const link = document.createElement('a');
   link.href = photo.src;
@@ -240,6 +240,22 @@ function showToast(msg) {
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 4000);
 }
+
+// ZIP download feature
+downloadAll.addEventListener('click', async () => {
+  const zip = new JSZip();
+  const folder = zip.folder("Divya_Birthday_Images");
+  
+  for (let i = 0; i < images.length; i++) {
+    const res = await fetch(images[i]);
+    const blob = await res.blob();
+    folder.file(`Divya_Photo_${i+1}.png`, blob);
+  }
+
+  const content = await zip.generateAsync({ type: "blob" });
+  saveAs(content, "DivyaBirthdayPhotos.zip");
+  showToast("🎁 Downloading all photos as ZIP...");
+});
 </script>
 </body>
 </html>
